@@ -1,0 +1,10 @@
+const express = require ('express') // Creo la constante express, la cual va a recibir lo que devuelve el require de express(libreria).
+const app = express() // Creo la constante app la cual va a contener express ejecutado(función de alto nivel). A traves de la misma voy a tener acceso a todas las propiedades y metodos que da express.
+const port = 3000 // Creo la constante port (puerto) y le doy un valor.
+const path = require('path') // Creo la constante path y requiero el modulo nativo path, para poder crear una ruta absoluta.
+const views = path.join(__dirname, 'views') // Creo la constante views, que va a devolver la ruta desde el origen hasta la carpeta views. Va a ser igual a path en el metodo join(se encarga de unir las piezas de la ruta) y tiene como parametros a __dirname (constante de node.js) que hace referencia al directorio del archivo(desde el disco c hasta la carpeta donde se encuentra el proyecto), y como segundo parametro un strig con el nombre de la carpeta donde quiero entrar.
+app.use(express.static('public')) // configuro para encontrar los recursos estaticos(imagenes, audio, video, etc.), lo va a encontrar en la carpeta public
+
+app.get('/', (req, res)=> res.sendFile(path.join(views,'home.html')) ) // Creo una ruta. Utilizo el metodo get de htpp, que recibe como primer parametro ('/') un string que define la url de la ruta (la ruta raiz del sitio), y como segundo parametro un callback para definir la respuesta, un arrow function con los parametros req(petición) y res(respuesta), al objeto res le pido el metodo sendFile y como parametro coloco a path en el metodo join(se encarga de unir las piezas de la ruta) con los parametros views (const. donde esta la carpeta) y 'home.html' (el archivo que quiero mostrar).
+
+app.listen(port, ()=> console.log('Servidor corriendo en el puerto ' + port)) // Levanto el servidor. Del objeto app (constante) utilizo el metodo listen, que recibe como primer parametro el puerto (port) y opcionalmente como segundo parametro un callback que contiene un console.log con un mensaje y concatenado el port.
